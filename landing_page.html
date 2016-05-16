@@ -1,0 +1,59 @@
+<!-- landing_page.html -->
+<html>
+<head>
+  <title>Chat App</title>
+</head>
+
+<script src="http://localhost:3000/socket.io/socket.io.js"></script>
+<script src="http://code.jquery.com/jquery-1.11.1.js"></script>
+<script src="http://localhost:3000/landing_page.js"></script>
+<link rel="stylesheet" type="text/css" href="http://localhost:3000/landing_page.css">
+<link rel="stylesheet" type="text/css" href="http://localhost:3000/chat_room.css">
+
+<body>
+
+  <h1>Chat App</h1>
+  <div id="userLogin_div" class="userLogin_div_css">
+    <input id="user_Name" autocomplete="off" />
+    <label>User Name</label>
+    <button id="select_username">Through me in</button>
+  </div>
+
+  <div id="rooms_div" class="rooms_div_css">
+    <h1 id="welcome_Message"></h1>
+    <label> Select Room: </label>
+    <select id="roomList_select"> </select>
+    <label>Room Name: </label>
+    <input id="new_room_name" autocomplete="off" />
+    <button id="create_new_room_name"> Create New Room</button>
+  </div>
+
+  <div id="chatSpace_div" class="chatDiv_css">
+    <table id="chatSpace_table" class="chatSpace_table_css">
+      <tr id="chatSpace_table_row" class="chatSpace_table_row_css">
+        <td id="chatSpace_table_row_td1" class="chatSpace_table_row_td1_css">
+          <table id="chatSpace_table_row_td1_table" class="chatSpace_table_row_td1_table_css">
+            <tr id="chatSpace_table_row_td1_table_tr1" class = "chatSpace_table_row_td1_table_tr1_css">
+              <td id="chatSpace_table_row_td1_table_tr1_td">
+
+              </td>
+            </tr>
+            <tr id="chatSpace_table_row_td1_table_tr2">
+              <td id="chatSpace_table_row_td1_table_tr2_td">
+                <input type="text" id="text_Message_input" class="text_Message_input_css"/>
+                <button type="button" id="text_Message_SendButton" class="text_Message_SendButton_css" disabled>Send</button>
+              </td>
+            </tr>
+          </table>
+        </td>
+        <td id="chatSpace_table_row_td3" class="chatSpace_table_row_td3_css">
+          {{personal chat space}}
+        </td>
+        <td id="chatSpace_table_row_td2" class="chatSpace_table_row_td2_css">
+          {{ display all users }}
+        </td>
+      </tr>
+    </table>
+      </div>
+    </body>
+  </html>

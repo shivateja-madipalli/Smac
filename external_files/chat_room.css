@@ -1,0 +1,111 @@
+/*form { background: #000; padding: 3px; position: fixed; bottom: 0; width: 100%; }
+form input { border: 0; padding: 10px; width: 90%; margin-right: .5%; }
+form button { width: 9%; background: rgb(130, 224, 255); border: none; padding: 10px; }*/
+
+
+.chatDiv_css {
+  /*background: #000;*/
+  /*padding: 3px;*/
+  position: fixed;
+  bottom: 0;
+  width: 98%;
+  /*padding-left: 1%;*/
+  padding-right: 2%;
+  display:none;
+}
+
+.chatDiv_DisplayTrue_css {
+  display:block;
+}
+
+.chatInput_css {
+  border: 0;
+  padding: 10px;
+  width: 90%;
+  margin-right: .5%;
+}
+
+.sendBtn_css {
+  width: 9%;
+  background: rgb(130, 224, 255);
+  border: none;
+  padding: 10px;
+}
+
+.chatSpace_table_css {
+  /*float:left;*/
+  width: 100%;
+  /*border: 1px solid black;*/
+}
+
+.chatSpace_table_row_css {
+
+}
+
+.chatSpace_table_row_td1_css {
+  width: 40%;
+  border: 1px solid black;
+}
+.chatSpace_table_row_td1_table_css {
+  width: 100%;
+
+}
+
+.chatSpace_table_row_td1_table_tr1_css {
+  border: solid thin;
+}
+
+.chat_table_css {
+  width: 100%;
+}
+
+.chatSpace_table_row_td2_css {
+  width: 10%;
+  border: 1px solid black;
+}
+
+.chatSpace_table_row_td3_css {
+  width: 40%;
+  border: 1px solid black;
+}
+
+.current_User_chatSpan_css {
+  /*background-color: blue;*/
+  /*color: white;*/
+  /*padding: 10px 5px;*/
+  /*display: block;*/
+  float: right;
+  text-align: right;
+  max-width: 75%;
+}
+
+.allOther_Users_chatSpan_css {
+  /*background-color: green;*/
+  /*color: white;*/
+  /*padding: 10px 5px;*/
+  /*display: block;*/
+  float: left;
+  text-align: left;
+  max-width: 75%;
+}
+
+.system_Messages_to_ChatRoom_css {
+  /*background-color: green;*/
+  /*color: white;*/
+  /*padding: 10px 5px;*/
+  font-style: italic;
+  display: block;
+  text-align: center;
+}
+
+.text_Message_input_css {
+  width:80%;
+  float:left;
+}
+
+.text_Message_SendButton_css {
+  background-color: #000;
+  color: white;
+  /*min-width: 15%;*/
+  width: 10%;
+}
