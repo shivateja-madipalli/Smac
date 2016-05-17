@@ -10,26 +10,68 @@
 <link rel="stylesheet" type="text/css" href="http://localhost:3000/landing_page.css">
 <link rel="stylesheet" type="text/css" href="http://localhost:3000/chat_room.css">
 
-<body>
+<link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Alegreya">
+<link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=PT+Sans">
+<link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Open+Sans">
+<link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Vollkorn">
 
-  <h1>Chat App</h1>
+<body id="main_body" class="main_body_css">
+<div style="height:10%">
+  <p id="app_Name" class="app_Name_css"> <span id="app_Name_inner_span" class="app_Name_inner_span_css"> STAC</span></p>
+  <p id="app_Name_tag_line" class="app_Name_tag_line_css"> - A short term application for chat </p>
+</div>
   <div id="userLogin_div" class="userLogin_div_css">
-    <input id="user_Name" autocomplete="off" />
-    <label>User Name</label>
-    <button id="select_username">Through me in</button>
+    <label>User Name: </label>
+    <input id="user_Name" autocomplete="off" class="fancy_input_Css"/>
+    <button id="select_username" class="fancy_button_css">Through me in</button>
   </div>
 
   <div id="rooms_div" class="rooms_div_css">
-    <h1 id="welcome_Message"></h1>
-    <label> Select Room: </label>
-    <select id="roomList_select"> </select>
-    <label>Room Name: </label>
-    <input id="new_room_name" autocomplete="off" />
-    <button id="create_new_room_name"> Create New Room</button>
+    <h2 id="welcome_Message" style="margin:0px"></h2>
+    <div>
+      <label>Room Name: </label>
+      <input id="new_room_name" autocomplete="off" class="fancy_input_Css" style="width:20%"/>
+      <button id="create_new_room_name" class="fancy_button_css"> Create New Room</button>
+      <label id="status_creating_new_room"> </label> 
+    </div>
+    <div style="margin-top:3%">
+      <label> Select Room: </label>
+      <select id="roomList_select" class="roomList_select_css" style="width:20%"> </select>
+    </div>
   </div>
 
   <div id="chatSpace_div" class="chatDiv_css">
-    <table id="chatSpace_table" class="chatSpace_table_css">
+
+    <div id="chatRoom_div" class="chatRoom_div_css">
+      <h4 id="room_chat_heading" class="room_chat_heading_css">Room Chat</h4>
+      <div id="room_chat_display" class="room_chat_display_css">
+      </div>
+      <div id="chatInput_div" class="chatInput_div_css">
+        <!-- <input type="text" id="chatRoom_messageInput" class="chatRoom_messageInput_css"/> -->
+        <textarea rows="2" id="chatRoom_messageInput" cols="50" class="chatRoom_messageInput_css"> </textarea>
+        <button type="button" id="chatRoom_messageInput_SendButton" class="chatRoom_messageInput_SendButton_css" disabled>Send</button>
+      </div>
+    </div>
+
+    <div id="allUsers_div" class="allUsers_div_css">
+      <h4 id="allUsers_heading" class="room_chat_heading_css">All Users in the App</h4>
+
+    </div>
+    <div id="privateChat_div" class="privateChat_div_css">
+      <h4 id="private_room_chat_heading" class="room_chat_heading_css">Private Chat</h4>
+      <div id="private_chat_display" class="room_chat_display_css">
+      </div>
+      <div id="private_chatInput_div" class="chatInput_div_css">
+        <textarea rows="2" id="privateChat_messageInput" cols="50" class="chatRoom_messageInput_css" disabled> </textarea>
+        <button type="button" id="privateChat_messageInput_SendButton" class="chatRoom_messageInput_SendButton_css" disabled>Send</button>
+      </div>
+    </div>
+
+    <div id="footer_div" class = "footer_div_css">
+      <p style="margin:0"> made with love - <span class="green_color_span"> Shivateja Madipalli </span> </p>
+    </div>
+
+    <!-- <table id="chatSpace_table" class="chatSpace_table_css">
       <tr id="chatSpace_table_row" class="chatSpace_table_row_css">
         <td id="chatSpace_table_row_td1" class="chatSpace_table_row_td1_css">
           <table id="chatSpace_table_row_td1_table" class="chatSpace_table_row_td1_table_css">
@@ -47,13 +89,25 @@
           </table>
         </td>
         <td id="chatSpace_table_row_td3" class="chatSpace_table_row_td3_css">
-          {{personal chat space}}
+          <table id="chatSpace_table_row_td3_table" class="chatSpace_table_row_td1_table_css">
+            <tr id="chatSpace_table_row_td3_table_tr1" class = "chatSpace_table_row_td1_table_tr1_css">
+              <td id="chatSpace_table_row_td3_table_tr1_td">
+
+              </td>
+            </tr>
+            <tr id="chatSpace_table_row_td3_table_tr2">
+              <td id="chatSpace_table_row_td3_table_tr2_td">
+                <input type="text" id="private_text_Message_input" class="text_Message_input_css"/>
+                <button type="button" id="private_text_Message_SendButton" class="text_Message_SendButton_css" disabled>Send</button>
+              </td>
+            </tr>
+          </table>
         </td>
         <td id="chatSpace_table_row_td2" class="chatSpace_table_row_td2_css">
           {{ display all users }}
         </td>
       </tr>
-    </table>
+    </table> -->
       </div>
     </body>
   </html>
