@@ -15,13 +15,32 @@ jQuery(document).ready(function($) {
 
   //console.log('page landed');
 
+  $('#user_Name').keyup(function(e) {
+    roomName = $('#user_Name').val();
+		if($(this).val().length !=0) {
+      if(event.keyCode == 13) {
+        $("#select_username").click();
+      }
+			$('#select_username').prop( "disabled", false );
+      $("#select_username").css("background-color","#607D8B");
+		}
+		else {
+			$('#select_username').prop( "disabled", true );
+      $("#select_username").css("background-color","gray");
+		}
+  });
+
   $('#select_username').on('click', function(event){
     event.preventDefault();
     new_user_name = $('#user_Name').val();
+    new_user_name = new_user_name.trim();
     if(!(jQuery.isEmptyObject(new_user_name))) {
-      //console.log(new_user_name);
       socket.emit('new_user', new_user_name);
     }
+    // else {
+      $('#select_username').prop( "disabled", true );
+      $("#select_username").css("background-color","gray");
+    // }
     return false;
   });
 
@@ -30,9 +49,11 @@ jQuery(document).ready(function($) {
       //console.log(current_user);
       global_current_user = current_user;
       all_actions_after_creating_user(current_user);
+      $("#status_selecting_user_name").html("");
     }
     else {
-      alert('User name already exists');
+      // alert('User name already exists');
+      $("#status_selecting_user_name").html("User name already exists");
       $('#select_username').val(null);
     }
   });
@@ -45,12 +66,34 @@ jQuery(document).ready(function($) {
     }
   });
 
+  $('#new_room_name').keyup(function(e) {
+    roomName = $('#new_room_name').val();
+		if($(this).val().length !=0) {
+      if(event.keyCode == 13) {
+        $("#create_new_room_name").click();
+      }
+			$('#create_new_room_name').prop( "disabled", false );
+      $("#create_new_room_name").css("background-color","#607D8B");
+		}
+		else {
+			$('#create_new_room_name').prop( "disabled", true );
+      $("#create_new_room_name").css("background-color","gray");
+		}
+  });
+
   $('#create_new_room_name').on('click', function(event){
     var newly_created_room = $('#new_room_name').val();
+    newly_created_room = newly_created_room.trim();
+    newly_created_room = newly_created_room.replace(/\ /g, '_');
     if(!(jQuery.isEmptyObject(newly_created_room))) {
       socket.emit('new_room', newly_created_room);
       $('#new_room_name').val('');
     }
+    // else {
+      //disable the button
+      $('#create_new_room_name').prop( "disabled", true );
+      $("#create_new_room_name").css("background-color","gray");
+    // }
   });
 
   $('#roomList_select').on('change', function(e) {
@@ -111,33 +154,46 @@ jQuery(document).ready(function($) {
   });
 
   $('#chatRoom_messageInput').keyup(function(e) {
-		chatMessage = $('#chatRoom_messageInput').val();
+		// chatMessage = $('#chatRoom_messageInput').val();
 		if($(this).val().length !=0) {
-      if(event.keyCode == 13){
+      if(event.keyCode == 13) {
         $("#chatRoom_messageInput_SendButton").click();
       }
 			$('#chatRoom_messageInput_SendButton').prop( "disabled", false );
+      $("#chatRoom_messageInput_SendButton").css("background-color","#607D8B");
 		}
 		else {
 			$('#chatRoom_messageInput_SendButton').prop( "disabled", true );
+      $("#chatRoom_messageInput_SendButton").css("background-color","gray");
 		}
 	});
 
 	$('#chatRoom_messageInput_SendButton').on('click', function(e) {
-		chatMessage = $('#chatRoom_messageInput').val();
+		chat_Message = $('#chatRoom_messageInput').val();
     //console.log('exec in send text msg');
     //console.log(chatMessage);
-		socket.emit('chat_Message', global_current_room, global_current_user, chatMessage, false);
-    $('#chatRoom_messageInput').val('');
+    if(chat_Message.trim().length !=0) {
+  		socket.emit('chat_Message', global_current_room, global_current_user, chat_Message, false);
+      $('#chatRoom_messageInput').val('');
+    }
+    // else {
+      $('#chatRoom_messageInput_SendButton').prop( "disabled", true );
+      $("#chatRoom_messageInput_SendButton").css("background-color","gray");
+    // }
 	});
 
   $('#privateChat_messageInput').keyup(function(e) {
     chatMessage = $('#privateChat_messageInput').val();
     if($(this).val().length !=0) {
+      if(event.keyCode == 13){
+        $("#privateChat_messageInput_SendButton").click();
+      }
       $('#privateChat_messageInput_SendButton').prop( "disabled", false );
+      $("#privateChat_messageInput_SendButton").css("background-color","#607D8B");
     }
     else {
       $('#privateChat_messageInput_SendButton').prop( "disabled", true );
+      $("#privateChat_messageInput_SendButton").css("background-color","gray");
     }
   });
 
@@ -145,8 +201,15 @@ jQuery(document).ready(function($) {
     private_chatMessage = $('#privateChat_messageInput').val();
     //console.log('exec in PRIVATE send text msg');
     //console.log(private_chatMessage);
-		socket.emit('chat_Message', global_current_private_room, global_current_user, private_chatMessage, true);
-    $('#privateChat_messageInput').val('');
+    private_chatMessage = private_chatMessage.trim();
+    if(private_chatMessage.length !=0) {
+  		socket.emit('chat_Message', global_current_private_room, global_current_user, private_chatMessage, true);
+      $('#privateChat_messageInput').val('');
+    }
+    // else {
+      $('#privateChat_messageInput_SendButton').prop( "disabled", true );
+      $("#privateChat_messageInput_SendButton").css("background-color","gray");
+    // }
   });
 
   socket.on('load_private_chat_history_between_2Parties', function(chat_history) {
@@ -213,12 +276,17 @@ jQuery(document).ready(function($) {
   });
 
   socket.on('private_chat_initiated_between_2Parties', function(reciever_user_name, sender_user_name, private_room_name) {
-    //console.log('exec in private_chat_initiated_between_2Parties');
-    system_message_toall_private_chat_window =  "private chat started between " + sender_user_name + " and " + reciever_user_name;
+    var system_message_toall_private_chat_window;
+    if(global_current_user == reciever_user_name) {
+      system_message_toall_private_chat_window =  "private chat started between you and " + sender_user_name;
+    }
+    else if(global_current_user == sender_user_name){
+      system_message_toall_private_chat_window =  "private chat started between you and " + reciever_user_name;
+    }
+    $('#private_chat_display').empty();
     html_ToBe_added = create_A_SpanToAdd_ChatMessage(null, system_message_toall_private_chat_window, 'system_Messages_to_ChatRoom_css');
     addMessages_to_MainChat('private_chat_display', html_ToBe_added);
     global_current_private_room = private_room_name;
-    //console.log('exec in private_chat_initiated_between_2Parties COMPLETED');
   });
 
 });
@@ -299,37 +367,32 @@ function empty_Chat_for_newRoom() {
 function show_all_current_Users(all_users_in_the_App) {
   //adding all the users in the app allUsers_div_css
   var allKeys = Object.keys(all_users_in_the_App);
-  var finalHtml = "<h4 id='allUsers_heading' class='room_chat_heading_css'>All Users in the App</h4>";
-  // finalHtml += "<table>";
-  // var check_for_disable_enable_privateChat_messageInput = false;
-  // for(var i=0; i < allKeys.length; i++) {
-  //   if(all_users_in_the_App[allKeys[i]] != global_current_user) {
-  //     var htmlContent = "<tr>";
-  //     htmlContent += "<td>";
-  //     htmlContent += "<button type='button' id=" + all_users_in_the_App[allKeys[i]] + " onclick = common_ClickEvent_Forall_Users(this.id) >" + all_users_in_the_App[allKeys[i]] + "</button>";
-  //     htmlContent += "</td>";
-  //     htmlContent += "</tr>";
-  //     finalHtml += htmlContent;
-  //     check_for_disable_enable_privateChat_messageInput = true;
-  //   }
-  // }
-  finalHtml += "<ul class='allusers_ul_css'>";
   var check_for_disable_enable_privateChat_messageInput = false;
   for(var i=0; i < allKeys.length; i++) {
-    // if(all_users_in_the_App[allKeys[i]] != global_current_user) {
-      var htmlContent = "<li>";
-      htmlContent += "<button type='button' style='font-family: PT Sans;font-size: medium;border: 0px;border-radius:15px;' id=" + all_users_in_the_App[allKeys[i]] + " onclick = common_ClickEvent_Forall_Users(this.id) >" + all_users_in_the_App[allKeys[i]] + "</button>";
-      htmlContent += "</li>";
-      finalHtml += htmlContent;
+    if(all_users_in_the_App[allKeys[i]] != global_current_user) {
+      console.log("check if user button is already created: " + all_users_in_the_App[allKeys[i]]);
+
+      //NEXT NEXT
+      if($('#' + all_users_in_the_App[allKeys[i]]).length == 0) {
+        console.log("user button is newly created");
+        var htmlContent = "<li id='" + all_users_in_the_App[allKeys[i]] +"_li'>";
+        htmlContent += "<button type='button' style='font-family: PT Sans;font-size: medium;border: 0px;border-radius:15px;' id=" + all_users_in_the_App[allKeys[i]] + " onclick = common_ClickEvent_Forall_Users(this.id) >" + all_users_in_the_App[allKeys[i]] + "</button>";
+        htmlContent += "</li>";
+        $('#allUsers_div_ul').append(htmlContent);
+        // finalHtml += htmlContent;
+      }
+      else {
+        console.log("user button is already created");
+      }
       check_for_disable_enable_privateChat_messageInput = true;
-    // }
+    }
   }
-  finalHtml += "</ul>";
+  //finalHtml += "</ul>";
   if(check_for_disable_enable_privateChat_messageInput) {
     $('#privateChat_messageInput').prop( "disabled", false );
   }
   console.log(finalHtml);
-  $('#allUsers_div').html(finalHtml);
+
 }
 
 function remove_CssClassFrom_HTML_Element(elementName, className) {
@@ -338,34 +401,42 @@ function remove_CssClassFrom_HTML_Element(elementName, className) {
 	}
 }
 
-function add_all_users_in_current_room(all_users_in_current_room) {
-  if(all_users_in_current_room != null) {
-    //add a ul - li to 'allUsers_div' div
-    $('#allUsers_div').html("");
-    allKeys = Object.keys(all_users_in_current_room);
-    var html_content = "<ul>";
-      for(var i=0;i<allKeys.length;i++) {
-        html_content += "<li>";
-        html_content += "<button type='button'>"+all_users_in_current_room[allKeys[i]]+"</button>";
-        html_content += "</li>";
-      }
-    html_content += "</ul>";
-    $('#allUsers_div').html(html_content);
-  }
-}
+// function add_all_users_in_current_room(all_users_in_current_room) {
+//   if(all_users_in_current_room != null) {
+//     //add a ul - li to 'allUsers_div' div
+//     $('#allUsers_div').html("");
+//     allKeys = Object.keys(all_users_in_current_room);
+//     var html_content = "<ul>";
+//       for(var i=0;i<allKeys.length;i++) {
+//         html_content += "<li>";
+//         html_content += "<button type='button'>"+all_users_in_current_room[allKeys[i]]+"</button>";
+//         html_content += "</li>";
+//       }
+//     html_content += "</ul>";
+//     $('#allUsers_div').html(html_content);
+//   }
+// }
 
 function common_ClickEvent_Forall_Users(button_Id) {
   //console.log("private chat opened with: ");
   //console.log(button_Id);
   // //console.log($('#'+button_Id).val());
   if(button_Id != global_current_user) {
-    $('#private_chat_display').empty();
-    socket.emit('initiate_private_message', button_Id, global_current_user);
+    socket.emit('initiate_private_message', button_Id);
+    $('#' + button_Id).remove();
+
+    var newUserNameButton = "<li id='" + button_Id +"_li'>";
+    newUserNameButton += "<button type='button' style='font-family: PT Sans;font-size: medium;border: 0px;border-radius:15px; background-color:#558B2F' id=" + button_Id + " onclick = common_ClickEvent_Forall_Users(this.id) >" + button_Id + "</button>";
+    newUserNameButton += "</li>";
+    $('#allUsers_div_ul').prepend(newUserNameButton);
+    // document.getElementById(button_Id).style.background='#558B2F';
+    //move the button li on top of the ui
+
   }
 }
 
-
 function updateScroll_OnChatSpace(div_element_Id){
     var element = document.getElementById(div_element_Id);
+
     element.scrollTop = element.scrollHeight;
 }

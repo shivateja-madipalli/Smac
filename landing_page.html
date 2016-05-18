@@ -17,13 +17,14 @@
 
 <body id="main_body" class="main_body_css">
 <div style="height:10%">
-  <p id="app_Name" class="app_Name_css"> <span id="app_Name_inner_span" class="app_Name_inner_span_css"> STAC</span></p>
-  <p id="app_Name_tag_line" class="app_Name_tag_line_css"> - A short term application for chat </p>
+  <p id="app_Name" class="app_Name_css"> <span id="app_Name_inner_span" class="app_Name_inner_span_css"> SMAC</span></p>
+  <p id="app_Name_tag_line" class="app_Name_tag_line_css"> - A short messaging application </p>
 </div>
   <div id="userLogin_div" class="userLogin_div_css">
     <label>User Name: </label>
     <input id="user_Name" autocomplete="off" class="fancy_input_Css"/>
     <button id="select_username" class="fancy_button_css">Through me in</button>
+    <label id="status_selecting_user_name"> </label>
   </div>
 
   <div id="rooms_div" class="rooms_div_css">
@@ -32,7 +33,7 @@
       <label>Room Name: </label>
       <input id="new_room_name" autocomplete="off" class="fancy_input_Css" style="width:20%"/>
       <button id="create_new_room_name" class="fancy_button_css"> Create New Room</button>
-      <label id="status_creating_new_room"> </label> 
+      <label id="status_creating_new_room"> </label>
     </div>
     <div style="margin-top:3%">
       <label> Select Room: </label>
@@ -54,8 +55,9 @@
     </div>
 
     <div id="allUsers_div" class="allUsers_div_css">
-      <h4 id="allUsers_heading" class="room_chat_heading_css">All Users in the App</h4>
-
+      <h4 id="allUsers_heading" class="room_chat_heading_css">Other Users </h4>
+      <ul id="allUsers_div_ul" class="allusers_ul_css">
+      </ul>
     </div>
     <div id="privateChat_div" class="privateChat_div_css">
       <h4 id="private_room_chat_heading" class="room_chat_heading_css">Private Chat</h4>
@@ -68,7 +70,7 @@
     </div>
 
     <div id="footer_div" class = "footer_div_css">
-      <p style="margin:0"> made with love - <span class="green_color_span"> Shivateja Madipalli </span> </p>
+      <p style="margin:0"> made with &hearts; - <span class="green_color_span"> Shivateja Madipalli </span> </p>
     </div>
 
     <!-- <table id="chatSpace_table" class="chatSpace_table_css">

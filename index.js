@@ -178,6 +178,7 @@ io.on('connection', function(socket) {
     current_login_user = users[socket.id];
 
     var room_name_for_private_chatting = "privateRoom_" + current_login_user + "_And_" + receiver_name + "_";
+    var alternate_room_name_for_private_chatting = "privateRoom_" + receiver_name + "_And_" + current_login_user + "_";
     console.log('room_name_for_private_chatting: ');
     console.log(room_name_for_private_chatting);
 
@@ -185,34 +186,43 @@ io.on('connection', function(socket) {
     var privateRoomFound = false;
     var all_keys_of_private_rooms = Object.keys(saving_private_chat);
     if(all_keys_of_private_rooms.length > 0) {
-      //console.log('inside all_keys_of_private_rooms length > 0');
-
-      all_keys_of_private_rooms.forEach(function(key){
+      all_keys_of_private_rooms.forEach(function(key) {
         if(key.indexOf("_" + current_login_user + "_") != -1 && key.indexOf("_" + receiver_name + "_") != -1) {
           privateRoomFound = true;
         }
       });
 
       if(privateRoomFound) {
+        console.log('privateRoomFound is true');
         var all_chat_history = saving_private_chat[room_name_for_private_chatting];
-        console.log('saving_private_chat AGAIN:');
-        console.log(saving_private_chat);
-        console.log('inside privateRoomFound is true');
+        var using_alternate_room_name = false;
+        if(all_chat_history == undefined) {
+          using_alternate_room_name = true;
+          var all_chat_history = saving_private_chat[alternate_room_name_for_private_chatting];
+        }
+        console.log('retrieving chat history of already existing chat between these users: ' + current_login_user + ' and ' + receiver_name);
+        // console.log(saving_private_chat);
         console.log(all_chat_history);
-        io.to(room_name_for_private_chatting).emit('load_private_chat_history_between_2Parties', all_chat_history);
+        if(using_alternate_room_name) {
+          io.to(alternate_room_name_for_private_chatting).emit('load_private_chat_history_between_2Parties', all_chat_history);
+        }
+        else {
+          io.to(room_name_for_private_chatting).emit('load_private_chat_history_between_2Parties', all_chat_history);
+        }
+
       }
       else {
         console.log('inside privateRoomFound is FALSE');
       }
     }
     if(!privateRoomFound || all_keys_of_private_rooms.length == 0) {
-      console.log('inside all_keys_of_private_rooms NOT found');
+      console.log('creating a new private chat between: ' + current_login_user + ' and ' + receiver_name);
       privateRooms.push[room_name_for_private_chatting];
       socket.join(room_name_for_private_chatting);
-      // //console.log(sockets);
       io.sockets.connected[receiver_id].join(room_name_for_private_chatting);
       io.to(room_name_for_private_chatting).emit('private_chat_initiated_between_2Parties', receiver_name, current_login_user, room_name_for_private_chatting);
       saving_private_chat[room_name_for_private_chatting] = {};
+      console.log('a new entry into saving_private_chat json is created with key: ' + room_name_for_private_chatting);
     }
 
   });
