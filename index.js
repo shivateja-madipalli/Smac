@@ -218,7 +218,9 @@ io.on('connection', function(socket) {
     }
     if(!privateRoomFound || all_keys_of_private_rooms.length == 0) {
       console.log('creating a new private chat between: ' + current_login_user + ' and ' + receiver_name);
-      privateRooms.push[room_name_for_private_chatting];
+      privateRooms.push(room_name_for_private_chatting);
+      console.log('WHAT THE FUCK IS HAPPENING: ' + room_name_for_private_chatting);
+      console.log(privateRooms);
       socket.join(room_name_for_private_chatting);
       io.sockets.connected[receiver_id].join(room_name_for_private_chatting);
       io.to(room_name_for_private_chatting).emit('private_chat_initiated_between_2Parties', receiver_name, current_login_user, room_name_for_private_chatting);
@@ -228,31 +230,48 @@ io.on('connection', function(socket) {
 
   });
 
-  socket.on('disconnect', function(){
+  socket.on('disconnect', function() {
     //console.log('user disconnected');
     var users_of_room;
+    var all_private_rooms_disconnected_user_is_in = [];
+    username_of_the_socket = users[socket.id];
     Object.keys(rooms).forEach(function(key) {
       users_of_room = rooms[key].users;
-      //console.log(users_of_room);
       index_of_socket_in_rooms = users_of_room.indexOf(socket.id);
       if(index_of_socket_in_rooms != -1) {
-        username_of_the_socket = users[socket.id];
         io.to(key).emit('user_left_the_room', username_of_the_socket);
-        // users_of_room.remove(socket.id);
-        // delete users_of_room[index_of_socket_in_rooms];
         users_of_room.splice(index_of_socket_in_rooms, 1);
         rooms[key].users = users_of_room;
         changed_users_count_in_current_room = users_of_room.length;
-        // //console.log('###########');
-        // //console.log(rooms);
-        // //console.log(changed_users_count_in_current_room);
-        // //console.log('###########');
         io.sockets.emit('update_rooms_count',changed_users_count_in_current_room, key);
       }
     });
+
+    console.log('BEFORE deleting HAS BEEN CALLED and the u_name: ' + username_of_the_socket);
+    console.log(privateRooms);
+    console.log('saving_private_chat: ');
+    console.log(saving_private_chat);
+    for(var i=0; i< privateRooms.length; i++) {
+      if(privateRooms[i].indexOf("_" + username_of_the_socket + "_") != -1) {
+        // privateRooms.remove(privateRooms[i]);
+        all_private_rooms_disconnected_user_is_in.push(privateRooms[i]);
+        console.log('inside loop if con');
+        console.log(privateRooms[i]);
+        delete saving_private_chat[privateRooms[i]];
+        privateRooms.splice(i, 1);
+      }
+    }
+
+    console.log('AFTER deleting HAS BEEN CALLED: ');
+    console.log(privateRooms);
+    console.log('saving_private_chat: ');
+    console.log(saving_private_chat);
     delete users[socket.id];
 
+    console.log("AFTER current login user is deleted from users: ");
+    console.log(users);
     io.sockets.emit('populate_all_user_data', users);
+    io.sockets.emit('delete_this_element', username_of_the_socket, all_private_rooms_disconnected_user_is_in);
   });
 });
 

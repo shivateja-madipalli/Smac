@@ -289,6 +289,15 @@ jQuery(document).ready(function($) {
     global_current_private_room = private_room_name;
   });
 
+
+  socket.on('delete_this_element', function(element_tobe_deleted, all_private_rooms_disconnected_user_is_in) {
+    $('#' + element_tobe_deleted).remove();
+    for(var i=0;i<all_private_rooms_disconnected_user_is_in.length;i++) {
+      if(global_current_private_room == all_private_rooms_disconnected_user_is_in[i]) {
+        $('#private_chat_display').empty();
+      }
+    }
+  });
 });
 
 function all_actions_after_creating_user(current_user_name) {
