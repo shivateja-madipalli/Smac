@@ -408,7 +408,7 @@ function show_all_current_Users(all_users_in_the_App) {
 
 function enable_user_name_in_allUsers(user_name) {
   $('#' + user_name).prop( "disabled", false );
-  $("#select_username").css("background-color","#eff0f1");
+  $("#select_username").css("background-color","#607D8B");
 }
 
 function remove_CssClassFrom_HTML_Element(elementName, className) {
