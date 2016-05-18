@@ -146,6 +146,7 @@ jQuery(document).ready(function($) {
     system_message_toall_users_in_room = newly_joined_user + " has joined the room";
     html_ToBe_added = create_A_SpanToAdd_ChatMessage(null, system_message_toall_users_in_room, 'system_Messages_to_ChatRoom_css');
     addMessages_to_MainChat('room_chat_display', html_ToBe_added);
+    enable_user_name_in_allUsers(newly_joined_user);
   });
 
   socket.on('update_rooms_count', function (all_users_count_in_current_room, room_name){
@@ -289,7 +290,6 @@ jQuery(document).ready(function($) {
     global_current_private_room = private_room_name;
   });
 
-
   socket.on('delete_this_element', function(element_tobe_deleted, all_private_rooms_disconnected_user_is_in) {
     $('#' + element_tobe_deleted).remove();
     for(var i=0;i<all_private_rooms_disconnected_user_is_in.length;i++) {
@@ -387,7 +387,7 @@ function show_all_current_Users(all_users_in_the_App) {
       if($('#' + all_users_in_the_App[allKeys[i]]).length == 0) {
         console.log("user button is newly created");
         var htmlContent = "<li id='" + all_users_in_the_App[allKeys[i]] +"_li'>";
-        htmlContent += "<button type='button' style='font-family: PT Sans;font-size: medium;border: 0px;border-radius:15px;' id=" + all_users_in_the_App[allKeys[i]] + " onclick = common_ClickEvent_Forall_Users(this.id) >" + all_users_in_the_App[allKeys[i]] + "</button>";
+        htmlContent += "<button type='button' style='font-family: PT Sans;font-size: medium; border: 0px;border-radius:15px; background-color:gray' id=" + all_users_in_the_App[allKeys[i]] + " onclick = common_ClickEvent_Forall_Users(this.id) disabled>" + all_users_in_the_App[allKeys[i]] + "</button>";
         htmlContent += "</li>";
         $('#allUsers_div_ul').append(htmlContent);
         // finalHtml += htmlContent;
@@ -403,6 +403,12 @@ function show_all_current_Users(all_users_in_the_App) {
     $('#privateChat_messageInput').prop( "disabled", false );
   }
   // console.log(finalHtml);
+}
+
+function enable_user_name_in_allUsers(user_name) {
+  $('#' + user_name).prop( "disabled", false );
+  $("#select_username").css("background-color","buttonface");
+
 }
 
 function remove_CssClassFrom_HTML_Element(elementName, className) {

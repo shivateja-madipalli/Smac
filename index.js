@@ -159,6 +159,8 @@ io.on('connection', function(socket) {
 
     io.to(selected_room_data.room_selected).emit('user_joined_a_room', selected_room_data.username);
     io.sockets.emit('update_rooms_count',users_count_in_current_room, selected_room_data.room_selected);
+    // username_to_be_enabled = users[socket.id];
+    // io.sockets.emit('enable_current_username', username_to_be_enabled);
   });
 
   socket.on('user_left_room', function(user_left_room) {
