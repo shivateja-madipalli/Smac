@@ -4,11 +4,11 @@
   <title>Chat App</title>
 </head>
 
-<script src="http://localhost:3000/socket.io/socket.io.js"></script>
+<script src="http://localhost:5000/socket.io/socket.io.js"></script>
 <script src="http://code.jquery.com/jquery-1.11.1.js"></script>
-<script src="http://localhost:3000/landing_page.js"></script>
-<link rel="stylesheet" type="text/css" href="http://localhost:3000/landing_page.css">
-<link rel="stylesheet" type="text/css" href="http://localhost:3000/chat_room.css">
+<script src="http://localhost:5000/landing_page.js"></script>
+<link rel="stylesheet" type="text/css" href="http://localhost:5000/landing_page.css">
+<link rel="stylesheet" type="text/css" href="http://localhost:5000/chat_room.css">
 
 <link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Alegreya">
 <link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=PT+Sans">
@@ -16,10 +16,10 @@
 <link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Vollkorn">
 
 <body id="main_body" class="main_body_css">
-<div style="height:10%">
-  <p id="app_Name" class="app_Name_css"> <span id="app_Name_inner_span" class="app_Name_inner_span_css"> SMAC</span></p>
-  <p id="app_Name_tag_line" class="app_Name_tag_line_css"> - A short messaging application </p>
-</div>
+  <div style="height:10%">
+    <p id="app_Name" class="app_Name_css"> <span id="app_Name_inner_span" class="app_Name_inner_span_css"> SMAC</span></p>
+    <p id="app_Name_tag_line" class="app_Name_tag_line_css"> - A short messaging application </p>
+  </div>
   <div id="userLogin_div" class="userLogin_div_css">
     <label>User Name: </label>
     <input id="user_Name" autocomplete="off" class="fancy_input_Css"/>
@@ -72,44 +72,6 @@
     <div id="footer_div" class = "footer_div_css">
       <p style="margin:0"> made with &hearts; - <span class="green_color_span"> Shivateja Madipalli </span> </p>
     </div>
-
-    <!-- <table id="chatSpace_table" class="chatSpace_table_css">
-      <tr id="chatSpace_table_row" class="chatSpace_table_row_css">
-        <td id="chatSpace_table_row_td1" class="chatSpace_table_row_td1_css">
-          <table id="chatSpace_table_row_td1_table" class="chatSpace_table_row_td1_table_css">
-            <tr id="chatSpace_table_row_td1_table_tr1" class = "chatSpace_table_row_td1_table_tr1_css">
-              <td id="chatSpace_table_row_td1_table_tr1_td">
-
-              </td>
-            </tr>
-            <tr id="chatSpace_table_row_td1_table_tr2">
-              <td id="chatSpace_table_row_td1_table_tr2_td">
-                <input type="text" id="text_Message_input" class="text_Message_input_css"/>
-                <button type="button" id="text_Message_SendButton" class="text_Message_SendButton_css" disabled>Send</button>
-              </td>
-            </tr>
-          </table>
-        </td>
-        <td id="chatSpace_table_row_td3" class="chatSpace_table_row_td3_css">
-          <table id="chatSpace_table_row_td3_table" class="chatSpace_table_row_td1_table_css">
-            <tr id="chatSpace_table_row_td3_table_tr1" class = "chatSpace_table_row_td1_table_tr1_css">
-              <td id="chatSpace_table_row_td3_table_tr1_td">
-
-              </td>
-            </tr>
-            <tr id="chatSpace_table_row_td3_table_tr2">
-              <td id="chatSpace_table_row_td3_table_tr2_td">
-                <input type="text" id="private_text_Message_input" class="text_Message_input_css"/>
-                <button type="button" id="private_text_Message_SendButton" class="text_Message_SendButton_css" disabled>Send</button>
-              </td>
-            </tr>
-          </table>
-        </td>
-        <td id="chatSpace_table_row_td2" class="chatSpace_table_row_td2_css">
-          {{ display all users }}
-        </td>
-      </tr>
-    </table> -->
-      </div>
-    </body>
-  </html>
+  </div>
+</body>
+</html>

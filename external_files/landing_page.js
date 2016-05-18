@@ -30,7 +30,7 @@ jQuery(document).ready(function($) {
 		}
   });
 
-  $('#select_username').on('click', function(event){
+  $('#select_username').on('click', function(event) {
     event.preventDefault();
     new_user_name = $('#user_Name').val();
     new_user_name = new_user_name.trim();
@@ -46,7 +46,7 @@ jQuery(document).ready(function($) {
 
   socket.on('new_user_details', function(current_user) {
     if(!(jQuery.isEmptyObject(current_user))) {
-      //console.log(current_user);
+      console.log(current_user);
       global_current_user = current_user;
       all_actions_after_creating_user(current_user);
       $("#status_selecting_user_name").html("");
@@ -86,7 +86,7 @@ jQuery(document).ready(function($) {
     newly_created_room = newly_created_room.trim();
     newly_created_room = newly_created_room.replace(/\ /g, '_');
     if(!(jQuery.isEmptyObject(newly_created_room))) {
-      socket.emit('new_room', newly_created_room);
+      socket.emit('new_room', newly_created_room, global_current_user);
       $('#new_room_name').val('');
     }
     // else {
@@ -135,8 +135,8 @@ jQuery(document).ready(function($) {
 		}
   });
 
-  socket.on('rooms_data_Updates', function(rooms_data) {
-    populate_rooms_Data(rooms_data);
+  socket.on('rooms_data_Updates', function(rooms_data, user_who_created_the_room) {
+    populate_rooms_Data(rooms_data, user_who_created_the_room);
   });
 
   socket.on('user_joined_a_room', function(newly_joined_user) {
@@ -309,7 +309,7 @@ function populate_empty_rooms_data() {
 }
 
 //need to check if room name is already exists
-function populate_rooms_Data(rooms_data) {
+function populate_rooms_Data(rooms_data, user_name) {
   //console.log('populate_rooms_Data is called');
   if(rooms_data != null) {
     var append_to_roomList = false;
@@ -331,7 +331,10 @@ function populate_rooms_Data(rooms_data) {
     if(append_to_roomList) {
       //console.log('append_to_roomList true');
       $('#roomList_select').append(fragment);
-      $('#status_creating_new_room').html("new room created");
+      console.log('user who created the room: ' + user_name + " and the global_current_user: " + global_current_user);
+      if((user_name != undefined || global_current_user!= undefined) && user_name == global_current_user) {
+        $('#status_creating_new_room').html("new room created");
+      }
     }
   }
 }
@@ -372,7 +375,6 @@ function show_all_current_Users(all_users_in_the_App) {
     if(all_users_in_the_App[allKeys[i]] != global_current_user) {
       console.log("check if user button is already created: " + all_users_in_the_App[allKeys[i]]);
 
-      //NEXT NEXT
       if($('#' + all_users_in_the_App[allKeys[i]]).length == 0) {
         console.log("user button is newly created");
         var htmlContent = "<li id='" + all_users_in_the_App[allKeys[i]] +"_li'>";
@@ -391,8 +393,7 @@ function show_all_current_Users(all_users_in_the_App) {
   if(check_for_disable_enable_privateChat_messageInput) {
     $('#privateChat_messageInput').prop( "disabled", false );
   }
-  console.log(finalHtml);
-
+  // console.log(finalHtml);
 }
 
 function remove_CssClassFrom_HTML_Element(elementName, className) {
@@ -400,22 +401,6 @@ function remove_CssClassFrom_HTML_Element(elementName, className) {
 		$('#' + elementName).removeClass(className);
 	}
 }
-
-// function add_all_users_in_current_room(all_users_in_current_room) {
-//   if(all_users_in_current_room != null) {
-//     //add a ul - li to 'allUsers_div' div
-//     $('#allUsers_div').html("");
-//     allKeys = Object.keys(all_users_in_current_room);
-//     var html_content = "<ul>";
-//       for(var i=0;i<allKeys.length;i++) {
-//         html_content += "<li>";
-//         html_content += "<button type='button'>"+all_users_in_current_room[allKeys[i]]+"</button>";
-//         html_content += "</li>";
-//       }
-//     html_content += "</ul>";
-//     $('#allUsers_div').html(html_content);
-//   }
-// }
 
 function common_ClickEvent_Forall_Users(button_Id) {
   //console.log("private chat opened with: ");

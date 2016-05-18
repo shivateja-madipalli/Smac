@@ -4,6 +4,7 @@ var http = require('http').Server(app);
 var io = require('socket.io')(http);
 
 
+var port = process.env.PORT || 3000;
 
 
 app.all('*',function(req, res, next) {
@@ -91,7 +92,7 @@ io.on('connection', function(socket) {
     }
   });
 
-  socket.on('new_room', function(room_name) {
+  socket.on('new_room', function(room_name, user_who_created_the_room) {
 
     var room_name_exists = false;
     //console.log(rooms);
@@ -103,7 +104,7 @@ io.on('connection', function(socket) {
         if(rooms[key].room_name == room_name) {
           //console.log('inside room name found');
           room_name_exists = true;
-          io.sockets.emit('rooms_data_Updates', null);
+          io.sockets.emit('rooms_data_Updates', null, null);
         }
       });
     }
@@ -116,7 +117,7 @@ io.on('connection', function(socket) {
       // rooms.push(room_name);
       // //console.log(rooms);
       rooms[room_name] = json_to_save_room_data;
-      io.sockets.emit('rooms_data_Updates', rooms);
+      io.sockets.emit('rooms_data_Updates', rooms, user_who_created_the_room);
     }
     else {
       //console.log('new room name creating NOT in process');
@@ -258,6 +259,6 @@ io.on('connection', function(socket) {
 
 
 
-http.listen(3000, function(){
-  console.log('listening on *:3000');
+http.listen(port, function(){
+  console.log('listening on: ' + port);
 });
