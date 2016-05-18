@@ -271,7 +271,7 @@ jQuery(document).ready(function($) {
 	});
 
   socket.on('user_left_the_room', function(username_who_left_the_current_room) {
-    system_message_toall_users_in_room_saying_the_user_left = username_who_left_the_current_room + " has left the room";
+    system_message_toall_users_in_room_saying_the_user_left = username_who_left_the_current_room + " left";
     html_ToBe_added = create_A_SpanToAdd_ChatMessage(null, system_message_toall_users_in_room_saying_the_user_left, 'system_Messages_to_ChatRoom_css');
     addMessages_to_MainChat('room_chat_display', html_ToBe_added);
   });
