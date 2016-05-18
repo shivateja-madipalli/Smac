@@ -394,6 +394,7 @@ function show_all_current_Users(all_users_in_the_App) {
       }
       else {
         console.log("user button is already created");
+        enable_user_name_in_allUsers(allKeys[i]);
       }
       check_for_disable_enable_privateChat_messageInput = true;
     }
@@ -407,8 +408,7 @@ function show_all_current_Users(all_users_in_the_App) {
 
 function enable_user_name_in_allUsers(user_name) {
   $('#' + user_name).prop( "disabled", false );
-  $("#select_username").css("background-color","buttonface");
-
+  $("#select_username").css("background-color","#eff0f1");
 }
 
 function remove_CssClassFrom_HTML_Element(elementName, className) {
