@@ -146,8 +146,7 @@ io.on('connection', function(socket) {
       console.log("current socket's name is being removed from previous room: ");
       console.log(selected_room_data.username);
       socket.leave(selected_room_data.previous_room);
-      //users_of_previous_room = rooms[selected_room_data.previous_room].users;
-      users_of_previous_room = rooms[selected_room_data.previous_room];
+      users_of_previous_room = rooms[selected_room_data.previous_room].users;
       console.log('users_of_previous_room: ');
       console.log(users_of_previous_room);
       var index = users_of_previous_room.indexOf(selected_room_data.username);
