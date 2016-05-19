@@ -155,9 +155,9 @@ jQuery(document).ready(function($) {
 
   });
 
-  socket.on('update_rooms_count', function (all_users_count_in_current_room, room_name){
+  socket.on('update_rooms_count', function (all_users_count_in_current_room, room_name, all_users_count_in_previous_room, previous_room_name){
     // var user_count_inthis_room = Object.keys(all_users_in_current_room).length;
-    update_rooms_select_options(room_name, all_users_count_in_current_room);
+    update_rooms_select_options(room_name, all_users_count_in_current_room, previous_room_name, all_users_count_in_previous_room);
   });
 
   $('#chatRoom_messageInput').keyup(function(e) {
@@ -304,6 +304,12 @@ jQuery(document).ready(function($) {
       }
     }
   });
+
+  socket.on('error_in_server', function(error_msg){
+    console.log('error on page');
+    $('#system_error_message').html("There's an error in server, please refresh the page");
+    $('#system_error_message').show();
+  });
 });
 
 function all_actions_after_creating_user(current_user_name) {
@@ -354,11 +360,21 @@ function populate_rooms_Data(rooms_data, user_name) {
   }
 }
 
-function update_rooms_select_options(room_name, number_of_users_in_the_room) {
+function update_rooms_select_options(current_room_name, number_of_users_in_current_room, previous_room_name, number_of_users_in_previous_room) {
   console.log('update_rooms_select_options is called');
-  console.log(room_name);
-  $('#roomList_select option[value="' + room_name + '"]').text(room_name + "("+number_of_users_in_the_room+")");
-  // $('#roomList_select option:contains("' + room_name + '")').text(room_name + "("+number_of_users_in_the_room+")");
+  console.log('current room:');
+  console.log(current_room_name);
+  console.log('current room count:');
+  console.log(number_of_users_in_current_room);
+  console.log('previous room:');
+  console.log(previous_room_name);
+  console.log('previous room count:');
+  console.log(number_of_users_in_previous_room);
+  $('#roomList_select option[value="' + current_room_name + '"]').text(current_room_name + "("+number_of_users_in_current_room+")");
+  if(previous_room_name != null && number_of_users_in_previous_room != null) {
+    console.log('inside changing previous room name count');
+    $('#roomList_select option[value="' + previous_room_name + '"]').text(previous_room_name + "(" + number_of_users_in_previous_room + ")");
+  }
 }
 
 function open_chat_div() {
@@ -370,8 +386,8 @@ function create_A_SpanToAdd_ChatMessage(user_who_sent_message, chat_Text, span_C
   if(user_who_sent_message != null) {
     returnVal += user_who_sent_message + ": ";
   }
-			returnVal += chat_Text;
-			returnVal += "</span>";
+	returnVal += chat_Text;
+	returnVal += "</span>";
 	return returnVal;
 }
 

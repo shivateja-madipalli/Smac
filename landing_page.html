@@ -8,7 +8,6 @@
 <script src="https://code.jquery.com/jquery-1.11.1.js"></script>
 <script src="https://ancient-tor-20194.herokuapp.com/landing_page.js"></script>
 <link rel="stylesheet" type="text/css" href="https://ancient-tor-20194.herokuapp.com/landing_page.css">
-<link rel="stylesheet" type="text/css" href="https://ancient-tor-20194.herokuapp.com/chat_room.css">
 
 <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Alegreya">
 <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=PT+Sans">
@@ -23,16 +22,19 @@
   <div id="userLogin_div" class="userLogin_div_css">
     <label>User Name: </label>
     <input id="user_Name" autocomplete="off" class="fancy_input_Css"/>
-    <button id="select_username" class="fancy_button_css">Through me in</button>
+    <button id="select_username" class="fancy_button_css">Go!</button>
     <label id="status_selecting_user_name"> </label>
   </div>
 
   <div id="rooms_div" class="rooms_div_css">
     <h2 id="welcome_Message" style="margin:0px"></h2>
+    <div id="error_div">
+      <label id="system_error_message" style="color:red; display:none"> </label>
     <div>
-      <label>Room Name: </label>
+    <div>
+      <label>New Room Name: </label>
       <input id="new_room_name" autocomplete="off" class="fancy_input_Css" style="width:20%"/>
-      <button id="create_new_room_name" class="fancy_button_css"> Create New Room</button>
+      <button id="create_new_room_name" class="fancy_button_css">Create</button>
       <label id="status_creating_new_room"> </label>
     </div>
     <div style="margin-top:3%">

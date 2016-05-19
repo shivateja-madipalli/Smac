@@ -22,9 +22,6 @@ app.get('/', function(req, res){
   res.sendFile("./landing_page.html", { root: __dirname });
 });
 
-app.get('/chatroom', function(req, res) {
-  res.sendFile("./chatRoom.html", {root: __dirname});
-});
 
 //global variables
 
@@ -39,34 +36,22 @@ sockets = [];
 var saving_private_chat = {};
 
 
-// var return_for_user_signup = {
-//   "welcome_note": "Welcome! to the Chat App",
-//   "rooms": {
-//     "Casual": {
-//       "loggedin_users": ["user1", "user2", "user3"]
-//     },
-//     "AllDev": {
-//       "loggedin_users": ["user4", "user5", "user6"]
-//     }
-//   }
-// }
-
-
 io.on('connection', function(socket) {
 
   sockets.push(socket);
 
-  //console.log('a user connected with socket id: ' + socket.id);
+  socket.on('error', function() {
+    //here i change options
+    socket.emit('error_in_server', "Theres an error");
+  });
 
-  if(Object.keys(rooms).length > 0) {
-    //console.log('rooms:');
-    //console.log(rooms);
+    if(Object.keys(rooms).length > 0) {
     io.sockets.emit('rooms_data_Updates', rooms);
-  }
-  else {
-    //console.log('rooms:');
-    //console.log(rooms);
-  }
+    }
+    else {
+      //console.log('rooms:');
+      //console.log(rooms);
+    }
 
   socket.on('new_user', function(user_name) {
     var user_name_exists = false;
@@ -153,20 +138,32 @@ io.on('connection', function(socket) {
     //adding socket or user to the rooms JSON
     rooms[selected_room_data.room_selected].users.push(socket.id);
 
-    users_count_in_current_room = rooms[selected_room_data.room_selected].users.length;
-
-    //console.log(users_count_in_current_room);
-
-    io.to(selected_room_data.room_selected).emit('user_joined_a_room', selected_room_data.username);
-    io.sockets.emit('update_rooms_count', users_count_in_current_room, selected_room_data.room_selected);
-
+    users_count_in_previous_room = null;
+    console.log('this is the previous room: ');
+    console.log(selected_room_data.previous_room);
     //when user switch room
     if(selected_room_data.previous_room != null) {
+      console.log("current socket's name is being removed from previous room: ");
+      console.log(selected_room_data.username);
       socket.leave(selected_room_data.previous_room);
+      //users_of_previous_room = rooms[selected_room_data.previous_room].users;
+      users_of_previous_room = rooms[selected_room_data.previous_room];
+      console.log('users_of_previous_room: ');
+      console.log(users_of_previous_room);
+      var index = users_of_previous_room.indexOf(selected_room_data.username);
+      rooms[selected_room_data.previous_room].users.splice(index,1);
+      users_count_in_previous_room = rooms[selected_room_data.previous_room].users.length;
     }
 
-    // username_to_be_enabled = users[socket.id];
-    // io.sockets.emit('enable_current_username', username_to_be_enabled);
+    users_count_in_current_room = rooms[selected_room_data.room_selected].users.length;
+
+    console.log('users_count_in_previous_room: ');
+    console.log(users_count_in_previous_room);
+    console.log('users_count_in_current_room: ');
+    console.log(users_count_in_current_room);
+
+    io.to(selected_room_data.room_selected).emit('user_joined_a_room', selected_room_data.username);
+    io.sockets.emit('update_rooms_count', users_count_in_current_room, selected_room_data.room_selected, users_count_in_previous_room, selected_room_data.previous_room);
   });
 
   socket.on('user_left_room', function(user_left_room) {

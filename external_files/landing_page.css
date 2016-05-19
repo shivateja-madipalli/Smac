@@ -1,7 +1,337 @@
-.userLogin_div_css {
+/*form { background: #000; padding: 3px; position: fixed; bottom: 0; width: 100%; }
+form input { border: 0; padding: 10px; width: 90%; margin-right: .5%; }
+form button { width: 9%; background: rgb(130, 224, 255); border: none; padding: 10px; }*/
+
+
+/*can be removed*/
+
+
+
+/*can be removed*/
+
+
+.main_body_css {
+  background-color:#FAFAFA;
+  font-family: "PT Sans";
+}
+
+.app_Name_css {
+  font-family: "Vollkorn";
+  margin: 0,0,0,0 px;
+/*margin-left: 2%;*/
+/*margin-right: 2%;*/
+color: white;
+font-size: -webkit-xxx-large;
+font-family: "Vollkorn";
+/*height: 70%;*/
+text-align: center;
+/*vertical-align: middle;*/
+line-height: normal;
+margin:0;
+
 
 }
 
+.app_Name_inner_span_css {
+    color: #558B2F;
+}
+
+.app_Name_tag_line_css {
+  /*font-size: large;*/
+  font-family: "Alegreya";
+  font-style: italic;
+text-align: center;
+  font-size : smaller;
+font-weight : 600;
+/*font-family: PT Sans;*/
+letter-spacing: 0.05rem;
+-webkit-font-smoothing: antialiased;
+margin:0;
+
+font-size: large;
+font-family: "RalewayExtraLight";
+}
+
+.userLogin_div_css {
+  text-align: center;
+  height: 10%;
+  margin-top:3%;
+}
+
+.fancy_input_Css{
+  /*width:90%;*/
+  /*height: 100%;*/
+  /*float:left;*/
+  /*padding: 3px;*/
+  margin: 0px;
+  font-size: 14px;
+  background-color: #F5F5F5;
+  color: #212121;
+  line-height: 1.3em;
+  /*font-family: "Times New Roman", Times, serif;*/
+  /*resize: none;*/
+}
+
+.fancy_button_css {
+  margin: 0px;
+  width: 6%;
+  /*height: 100%;*/
+  background-color: gray;
+  -moz-border-radius: 4px;
+  -webkit-border-radius: 4px;
+  border-radius: 0px;
+  border-bottom-right-radius: 15px;
+  border-top-right-radius: 15px;
+  /*font-family: "Times New Roman", Times, serif;*/
+  font-size: medium;
+  color: #212121;
+  border: 0px;
+}
+
 .rooms_div_css {
+  height: 20%;
+  display: none;
+}
+
+.roomList_select_css {
+  width: 20%;
+  /*height: 4%;*/
+  font-size: medium;
+  -webkit-appearance: menulist-button;
+  border-radius: 0px;
+  line-height: 14px;
+}
+
+.chatDiv_css {
+  /*background: #000;*/
+  /*padding: 3px;*/
+  position: fixed;
+  bottom: 0;
+  width: 98%;
+  /*padding-left: 1%;*/
+  padding-right: 2%;
   display:none;
+  height: 70%;
+  /*margin-bottom: 5%;*/
+}
+
+.room_chat_heading_css {
+  text-align: center;
+  margin:0
+}
+
+.green_color_span {
+  color: #558B2F;
+}
+
+.chatRoom_div_css {
+  /*background-color: brown;*/
+  max-width: 41%;
+  width:41%;
+  /*border:1px solid green;*/
+  float:left;
+  height: 86%;
+  /*overflow-y: scroll;*/
+  margin-bottom: 1%;
+  position: relative;
+  border:0px;
+}
+
+.room_chat_display_css {
+  position: relative;
+  overflow-y: scroll;
+  max-height: 80%;
+  border:1px solid #558B2F;
+  height: 100%;
+  /*margin-left: 20px;
+  margin-right: 20px;*/
+}
+
+.chatInput_div_css {
+  position: absolute;
+  bottom: 0;
+  height: 13%;
+  width: 100%;
+}
+
+.privateChat_div_css {
+  max-width: 41%;
+  width:41%;
+  /*border:1px solid green;*/
+  /*float:left;*/
+  height: 86%;
+  overflow-y: scroll;
+  /*margin-left: 2%;*/
+  /*margin-right: 2%;*/
+  margin-bottom: 1%;
+  position: relative;
+  border:0px;
+}
+
+.allUsers_div_css {
+  /*background-color: yellow;*/
+  max-width: 13%;
+  width: 13%;
+  /*border:1px solid green;*/
+  float:left;
+  height: 86%;
+  overflow-y: scroll;
+  margin-bottom: 1%;
+  margin-left:2%;
+  margin-right: 2%;
+}
+
+.footer_div_css {
+  /*background-color: gray;*/
+  width: 100%;
+  height: 10%;
+  padding-top:1%;
+  /*margin-bottom: 1%;*/
+  text-align: center;
+}
+
+.chatDiv_DisplayTrue_css {
+  display:block;
+}
+
+.chatInput_css {
+  border: 0;
+  padding: 10px;
+  width: 90%;
+  margin-right: .5%;
+}
+
+.sendBtn_css {
+  width: 9%;
+  background: rgb(130, 224, 255);
+  border: none;
+  padding: 10px;
+}
+
+.chatSpace_table_css {
+  /*float:left;*/
+  width: 100%;
+  /*border: 1px solid black;*/
+}
+
+textarea:focus {
+    outline:none;
+}
+
+input:focus {
+    outline:none;
+}
+
+select:focus {
+    outline:none;
+}
+
+button:focus {
+    outline:none;
+}
+
+.chatSpace_table_row_css {
+
+}
+
+.chatSpace_table_row_td1_css {
+  width: 40%;
+  border: 1px solid black;
+}
+.chatSpace_table_row_td1_table_css {
+  width: 100%;
+
+}
+
+.chatSpace_table_row_td1_table_tr1_css {
+  border: solid thin;
+}
+
+.chat_table_css {
+  width: 100%;
+}
+
+.chatSpace_table_row_td2_css {
+  width: 10%;
+  border: 1px solid black;
+}
+
+.chatSpace_table_row_td3_css {
+  width: 40%;
+  border: 1px solid black;
+}
+
+.current_User_chatSpan_css {
+  /*background-color: blue;*/
+  /*color: white;*/
+  /*padding: 10px 5px;*/
+  /*display: block;*/
+  float: right;
+  text-align: right;
+  max-width: 75%;
+  margin-left:5%;
+  margin-right:5%;
+  /*position: absolute;*/
+  bottom: 0;
+}
+
+
+.allOther_Users_chatSpan_css {
+  /*background-color: green;*/
+  /*color: white;*/
+  /*padding: 10px 5px;*/
+  /*display: block;*/
+  float: left;
+  text-align: left;
+  max-width: 75%;
+  margin-left: 2%;
+}
+
+.system_Messages_to_ChatRoom_css {
+  /*background-color: green;*/
+  /*color: white;*/
+  /*padding: 10px 5px;*/
+  font-style: italic;
+  display: block;
+  text-align: center;
+}
+
+.chatRoom_messageInput_css {
+  width:90%;
+  height: 100%;
+  float:left;
+  /*padding: 3px;*/
+  margin: 0px;
+  font-size: 18px;
+  background-color: #F5F5F5;
+  color: #212121;
+  line-height: 1.3em;
+  /*font-family: "Times New Roman", Times, serif;*/
+  resize: none;
+}
+
+.chatRoom_messageInput_SendButton_css {
+  margin: 0px;
+  width: 10%;
+  height: 100%;
+  background-color: gray;
+  -moz-border-radius: 4px;
+  -webkit-border-radius: 4px;
+  border-radius: 0px;
+  border-bottom-right-radius: 15px;
+  border-top-right-radius: 15px;
+  font-family: "Times New Roman", Times, serif;
+  font-size: medium;
+  color: #212121;
+  border: 0px;
+}
+
+.allusers_ul_css {
+  list-style-type: none;
+  text-align: center;
+  padding: 0px;
+}
+
+.allusers_ul_css li{
+  margin: 0 0 5% 0;
 }
