@@ -158,7 +158,13 @@ io.on('connection', function(socket) {
     //console.log(users_count_in_current_room);
 
     io.to(selected_room_data.room_selected).emit('user_joined_a_room', selected_room_data.username);
-    io.sockets.emit('update_rooms_count',users_count_in_current_room, selected_room_data.room_selected);
+    io.sockets.emit('update_rooms_count', users_count_in_current_room, selected_room_data.room_selected);
+
+    //when user switch room
+    if(selected_room_data.previous_room != null) {
+      socket.leave(selected_room_data.previous_room);
+    }
+
     // username_to_be_enabled = users[socket.id];
     // io.sockets.emit('enable_current_username', username_to_be_enabled);
   });

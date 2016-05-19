@@ -104,7 +104,8 @@ jQuery(document).ready(function($) {
         //console.log('global_current_user' + global_current_user);
         var res_obj = {
 					"username" : global_current_user,
-					"room_selected" : room_Selected
+					"room_selected" : room_Selected,
+          "previous_room" : null
 				}
 				global_previous_room_name = room_Selected;
 				global_current_room = room_Selected;
@@ -115,7 +116,8 @@ jQuery(document).ready(function($) {
 				//console.log('inside previous room NOT empty');
         var res_obj = {
 					"username" : global_current_user,
-					"room_selected" : room_Selected
+					"room_selected" : room_Selected,
+          "previous_room" : global_previous_room_name
 				}
 				socket.emit('user_left_room', global_previous_room_name);
 				global_previous_room_name = room_Selected;
@@ -143,10 +145,14 @@ jQuery(document).ready(function($) {
     //console.log('user_joined_a_room is called');
     //this will be invoked when ever a new user joins the room
     open_chat_div();
+    if(newly_joined_user == global_current_user) {
+      $('#room_chat_display').empty();
+    }
     system_message_toall_users_in_room = newly_joined_user + " has joined the room";
     html_ToBe_added = create_A_SpanToAdd_ChatMessage(null, system_message_toall_users_in_room, 'system_Messages_to_ChatRoom_css');
     addMessages_to_MainChat('room_chat_display', html_ToBe_added);
     //enable_user_name_in_allUsers(newly_joined_user);
+
   });
 
   socket.on('update_rooms_count', function (all_users_count_in_current_room, room_name){
@@ -349,8 +355,10 @@ function populate_rooms_Data(rooms_data, user_name) {
 }
 
 function update_rooms_select_options(room_name, number_of_users_in_the_room) {
-  //console.log('update_rooms_select_options is called');
-  $('#roomList_select option:contains("' + room_name + '")').text(room_name + "("+number_of_users_in_the_room+")");
+  console.log('update_rooms_select_options is called');
+  console.log(room_name);
+  $('#roomList_select option[value="' + room_name + '"]').text(room_name + "("+number_of_users_in_the_room+")");
+  // $('#roomList_select option:contains("' + room_name + '")').text(room_name + "("+number_of_users_in_the_room+")");
 }
 
 function open_chat_div() {
