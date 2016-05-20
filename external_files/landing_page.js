@@ -413,7 +413,8 @@ function show_all_current_Users(all_users_in_the_App) {
   for(var i=0; i < allKeys.length; i++) {
     if(all_users_in_the_App[allKeys[i]] != global_current_user) {
       console.log("check if user button is already created: " + all_users_in_the_App[allKeys[i]]);
-
+      console.log("$('#' + all_users_in_the_App[allKeys[i]]).length: ");
+      console.log($('#' + all_users_in_the_App[allKeys[i]]).length);
       if($('#' + all_users_in_the_App[allKeys[i]]).length == 0) {
         console.log("user button is newly created");
         var htmlContent = "<li id='" + all_users_in_the_App[allKeys[i]] +"_li'>";
