@@ -123,7 +123,7 @@ io.on('connection', function(socket) {
       saving_private_chat[room_name][keyVal] = text_Msg;
       console.log(saving_private_chat);
     }
-    else{
+    else {
       io.to(room_name).emit('chatMessage_to_WholeRoom', current_User, text_Msg);
     }
   });
@@ -174,6 +174,12 @@ io.on('connection', function(socket) {
   socket.on('initiate_private_message', function(receiver_name) {
     //private chat open
     //get socket id with user name
+
+    console.log('##########');
+    console.log('receiver_name');
+    console.log(receiver_name);
+    console.log('###########');
+
     var receiver_id;
     Object.keys(users).forEach(function(key) {
       if(users[key] == receiver_name) {
@@ -199,7 +205,11 @@ io.on('connection', function(socket) {
 
       if(privateRoomFound) {
         console.log('privateRoomFound is true');
+        console.log('room_name_for_private_chatting INSIDE privateRoomFound TRUE: ');
+        console.log(room_name_for_private_chatting);
         var all_chat_history = saving_private_chat[room_name_for_private_chatting];
+        console.log('all_chat_history: ');
+        console.log(all_chat_history);
         var using_alternate_room_name = false;
         if(all_chat_history == undefined) {
           using_alternate_room_name = true;
@@ -209,10 +219,12 @@ io.on('connection', function(socket) {
         // console.log(saving_private_chat);
         console.log(all_chat_history);
         if(using_alternate_room_name) {
-          io.to(alternate_room_name_for_private_chatting).emit('load_private_chat_history_between_2Parties', all_chat_history);
+          io.to(alternate_room_name_for_private_chatting).emit('load_private_chat_history_between_2Parties', all_chat_history, alternate_room_name_for_private_chatting);
+          //io.to(alternate_room_name_for_private_chatting).emit('private_chat_initiated_between_2Parties', receiver_name, current_login_user, alternate_room_name_for_private_chatting);
         }
         else {
-          io.to(room_name_for_private_chatting).emit('load_private_chat_history_between_2Parties', all_chat_history);
+          io.to(room_name_for_private_chatting).emit('load_private_chat_history_between_2Parties', all_chat_history, room_name_for_private_chatting);
+          //io.to(room_name_for_private_chatting).emit('private_chat_initiated_between_2Parties', receiver_name, current_login_user, room_name_for_private_chatting);
         }
 
       }

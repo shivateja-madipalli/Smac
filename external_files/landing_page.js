@@ -219,9 +219,12 @@ jQuery(document).ready(function($) {
     // }
   });
 
-  socket.on('load_private_chat_history_between_2Parties', function(chat_history) {
+  socket.on('load_private_chat_history_between_2Parties', function(chat_history, private_chat_room) {
     //CLEAR previous chat
     $('#private_chat_display').empty();
+
+    //updating global_current_private_room
+    global_current_private_room = private_chat_room;
 
     var chat_history_keys = Object.keys(chat_history);
     console.log('chat_history: ');
@@ -287,13 +290,16 @@ jQuery(document).ready(function($) {
     if(global_current_user == reciever_user_name) {
       system_message_toall_private_chat_window =  "private chat started between you and " + sender_user_name;
     }
-    else if(global_current_user == sender_user_name){
+    else if(global_current_user == sender_user_name) {
       system_message_toall_private_chat_window =  "private chat started between you and " + reciever_user_name;
     }
     $('#private_chat_display').empty();
     html_ToBe_added = create_A_SpanToAdd_ChatMessage(null, system_message_toall_private_chat_window, 'system_Messages_to_ChatRoom_css');
     addMessages_to_MainChat('private_chat_display', html_ToBe_added);
+
     global_current_private_room = private_room_name;
+    console.log('global_current_private_room');
+    console.log(global_current_private_room);
   });
 
   socket.on('delete_this_element', function(element_tobe_deleted, all_private_rooms_disconnected_user_is_in) {
@@ -442,14 +448,13 @@ function remove_CssClassFrom_HTML_Element(elementName, className) {
 }
 
 function common_ClickEvent_Forall_Users(button_Id) {
-  //console.log("private chat opened with: ");
-  //console.log(button_Id);
-  // //console.log($('#'+button_Id).val());
+  console.log("private chat opened with: ");
+  console.log(button_Id);
+  //console.log($('#'+button_Id).val());
   if(button_Id != global_current_user) {
     socket.emit('initiate_private_message', button_Id);
     $('#' + button_Id).remove();
-
-    var newUserNameButton = "<li id='" + button_Id +"_li'>";
+    var newUserNameButton = "<li id='" + button_Id + "_li'>";
     newUserNameButton += "<button type='button' style='font-family: PT Sans;font-size: medium;border: 0px;border-radius:15px; background-color:#558B2F' id=" + button_Id + " onclick = common_ClickEvent_Forall_Users(this.id) >" + button_Id + "</button>";
     newUserNameButton += "</li>";
     $('#allUsers_div_ul').prepend(newUserNameButton);
