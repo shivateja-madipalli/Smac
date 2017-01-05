@@ -10,7 +10,7 @@ If the user_name is already taken, it will prompt that it is taken.
 
 Once a user_name is selected on page refresh that user will be deleted as it is equivalent to IRC chatting. 
 
-
+![Alt text](/external_files/screenshots_smac/username.png?raw=true "UserName")
 
 ¥	Creating a room: 
 
