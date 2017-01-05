@@ -34,15 +34,17 @@ Once a room is selected, chat view appears with three main divisions.
 # Room Chat:
 
 All the messages from different users and messages from current user will be displayed here. 
+
 Once a message is popped up it is differentiated between current user and all other users in the group as you see above. 
+
 Every other user in the group will be intimated when ever a new user join’s the room. 
+
 Send buttons are disabled until there’s something written in the chat text area. 
+
 Text auto scrolls up when there’s a new chat appended at the bottom. 
 
 
 ![Alt text](/external_files/screenshots_smac/chat_view_2.png?raw=true "Chat View 2")
-
-
 
 When a user leaves either by selecting another room or going out of the application (either by refreshing their page or closing the app) the room and the private chat will be informed. 
 
